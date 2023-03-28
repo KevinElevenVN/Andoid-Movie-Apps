@@ -62,7 +62,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.StudentVH>{
         }
     }
     //interact with cells
-    interface Listener{
+    public interface Listener{
         void setOnDeleteClick(Student st);
         void setOnEditClick(Student st);
     }

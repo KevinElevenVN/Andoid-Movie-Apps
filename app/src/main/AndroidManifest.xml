@@ -14,8 +14,16 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity2"
-            android:exported="true" >
+            android:name=".Activity.PlayerActivity"
+            android:exported="false"
+            android:resizeableActivity="true"
+            android:screenOrientation="landscape"
+            android:supportsPictureInPicture="true"
+            android:theme="@style/Theme.AppCompat.FullScreen" />
+
+        <activity
+            android:name=".Activity.MainActivity4"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,10 +31,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
 
-        </activity>
+            android:name=".Activity.MainActivity3"
+            android:exported="true"></activity>
+
+        <activity
+            android:name=".Activity.MainActivity2"
+            android:exported="true" />
+
+        <activity
+            android:name=".Activity.MainActivity"
+            android:exported="true" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
