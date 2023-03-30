@@ -40,15 +40,16 @@
         app:srcCompat="@drawable/gradient" />
 
     <TextView
-        android:id="@+id/feature_title"
+        android:paddingBottom="24dp"
+        android:id="@+id/feature_tilte"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Features Title"
+        android:text="Features Tilte"
         android:layout_marginHorizontal="24sp"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/img_thumbnail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

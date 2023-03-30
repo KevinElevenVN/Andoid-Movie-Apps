@@ -1,26 +1,28 @@
 package com.example.myapplication.Model;
 
 public class DataModel {
-    String Ftitlte;
+
+    String Ftilte;
     String Fimg;
     String Fvid;
+
 
     //empty constructor
     public DataModel(){}
 
     //constructor
-    public DataModel(String ftitlte, String fimg, String fvid) {
-        Ftitlte = ftitlte;
+    public DataModel(String ftilte, String fimg, String fvid) {
+        Ftilte = ftilte;
         Fimg = fimg;
         Fvid = fvid;
     }
 
-    public String getFtitlte() {
-        return Ftitlte;
+    public String getFtilte() {
+        return Ftilte;
     }
 
-    public void setFtitlte(String ftitlte) {
-        Ftitlte = ftitlte;
+    public void setFtilte(String ftilte) {
+        Ftilte = ftilte;
     }
 
     public String getFimg() {

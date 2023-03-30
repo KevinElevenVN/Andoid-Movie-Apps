@@ -18,14 +18,12 @@
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_marginBottom="16sp"
+            android:layout_marginVertical="8dp"
             app:titleTextColor="@color/white"
             android:background="@android:color/transparent"
             android:backgroundTint="@android:color/transparent" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
-
 
     <ScrollView
         android:scrollbars="none"
@@ -52,7 +50,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Thịnh hạnh"
+                android:text="Anime"
                 android:fontFamily="sans-serif-black"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -76,7 +74,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Lịch sử/Yêu Thích"
+                android:text="Cartoon"
                 android:fontFamily="sans-serif-black"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -86,6 +84,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="8dp"
@@ -93,9 +92,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
 </LinearLayout>
 
