@@ -10,12 +10,12 @@ public class AnimeModel {
     String Alength;
     String Arating;
     String Athumb;
-    String Atitle;
+    String Atilte;
 
     public AnimeModel(){}
 
     public AnimeModel(String acast, String acountry, String adesc, String aeps,
-                      String alength, String arating, String athumb, String atitle) {
+                      String alength, String arating, String athumb, String atilte) {
         Acast = acast;
         Acountry = acountry;
         Adesc = adesc;
@@ -23,7 +23,7 @@ public class AnimeModel {
         Alength = alength;
         Arating = arating;
         Athumb = athumb;
-        Atitle = atitle;
+        Atilte = atilte;
     }
 
     public String getAcast() {
@@ -82,11 +82,11 @@ public class AnimeModel {
         Athumb = athumb;
     }
 
-    public String getAtitle() {
-        return Atitle;
+    public String getAtilte() {
+        return Atilte;
     }
 
-    public void setAtitle(String atitle) {
-        Atilte = atitle;
+    public void setAtilte(String atilte) {
+        Atilte = atilte;
     }
 }
