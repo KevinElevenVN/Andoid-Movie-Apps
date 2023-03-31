@@ -28,7 +28,7 @@
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/vid_player"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@color/black"
         app:show_buffering="when_playing"
