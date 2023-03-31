@@ -15,7 +15,9 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.myapplication.AnimeAdapter;
+import com.example.myapplication.CartoonAdapter;
 import com.example.myapplication.Model.AnimeModel;
+import com.example.myapplication.Model.CartoonModel;
 import com.example.myapplication.Model.DataModel;
 import com.example.myapplication.MovieAdapter;
 import com.example.myapplication.R;
@@ -47,6 +49,10 @@ public class MainActivity4 extends AppCompatActivity {
     RecyclerView animeRecyclerView;
     AnimeAdapter animeAdapter;
 
+    ArrayList<CartoonModel> cartoonModels;
+    RecyclerView cartoonRecyclerView;
+    CartoonAdapter cartoonAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +79,19 @@ public class MainActivity4 extends AppCompatActivity {
         //load data from firebase
         loadFireBaseForSlider();
         loadAnimeData();
+        loadCartoonData();
+    }
+
+    private void loadCartoonData() {
+        DatabaseReference CTRef = database.getReference("Cartoon");
+        cartoonRecyclerView = findViewById(R.id.recyclerView2);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        cartoonRecyclerView.setLayoutManager(layoutManager);
+        cartoonModels = new ArrayList<>();
+        animeAdapter = new CartoonAdapter(cartoonModels)
     }
 
     private void loadMovieData() {
@@ -88,7 +107,6 @@ public class MainActivity4 extends AppCompatActivity {
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         //reverse layout for new entry display first
         //by default render from index 0 1 2 3
-        //need 3 2 1 0
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
 
