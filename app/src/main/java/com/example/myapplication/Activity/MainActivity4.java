@@ -16,11 +16,21 @@ import android.widget.Toast;
 
 import com.example.myapplication.AnimeAdapter;
 import com.example.myapplication.CartoonAdapter;
+import com.example.myapplication.ComedyAdapter;
+import com.example.myapplication.DramaAdapter;
 import com.example.myapplication.Model.AnimeModel;
 import com.example.myapplication.Model.CartoonModel;
+import com.example.myapplication.Model.ComedyModel;
 import com.example.myapplication.Model.DataModel;
+import com.example.myapplication.Model.DramaModel;
+import com.example.myapplication.Model.RomanticModel;
+import com.example.myapplication.Model.ScaryModel;
+import com.example.myapplication.Model.SciFiModel;
 import com.example.myapplication.MovieAdapter;
 import com.example.myapplication.R;
+import com.example.myapplication.RomanticAdapter;
+import com.example.myapplication.ScaryAdapter;
+import com.example.myapplication.SciFiAdapter;
 import com.google.android.material.slider.Slider;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -42,16 +52,25 @@ public class MainActivity4 extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
+
     ArrayList<DataModel> dataModels;
     MovieAdapter sliderAdapter;
+    RecyclerView animeRV, cartoonRV, comedyRV, dramaRV, romanRV, scaryRV, scifiRV;
 
     ArrayList<AnimeModel> animeModels;
-    RecyclerView animeRecyclerView;
     AnimeAdapter animeAdapter;
-
     ArrayList<CartoonModel> cartoonModels;
-    RecyclerView cartoonRecyclerView;
     CartoonAdapter cartoonAdapter;
+    ArrayList<ComedyModel> comedyModels;
+    ComedyAdapter comedyAdapter;
+    ArrayList<DramaModel> dramaModels;
+    DramaAdapter dramaAdapter;
+    ArrayList<RomanticModel> romanticModels;
+    RomanticAdapter romanticAdapter;
+    ArrayList<ScaryModel> scaryModels;
+    ScaryAdapter scaryAdapter;
+    ArrayList<SciFiModel> sciFiModels;
+    SciFiAdapter sciFiAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,19 +98,7 @@ public class MainActivity4 extends AppCompatActivity {
         //load data from firebase
         loadFireBaseForSlider();
         loadAnimeData();
-        loadCartoonData();
-    }
-
-    private void loadCartoonData() {
-        DatabaseReference CTRef = database.getReference("Cartoon");
-        cartoonRecyclerView = findViewById(R.id.recyclerView2);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
-        cartoonRecyclerView.setLayoutManager(layoutManager);
-        cartoonModels = new ArrayList<>();
-        animeAdapter = new CartoonAdapter(cartoonModels)
+        loadScaryData();
     }
 
     private void loadMovieData() {
@@ -101,7 +108,7 @@ public class MainActivity4 extends AppCompatActivity {
     private void loadAnimeData() {
         //load data from firebase
         DatabaseReference ARef = database.getReference("Anime");
-        animeRecyclerView = findViewById(R.id.recyclerView);
+        animeRV = findViewById(R.id.rv_Anime);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
@@ -110,11 +117,11 @@ public class MainActivity4 extends AppCompatActivity {
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
 
-        animeRecyclerView.setLayoutManager(layoutManager);
+        animeRV.setLayoutManager(layoutManager);
 
         animeModels = new ArrayList<>();
         animeAdapter = new AnimeAdapter(animeModels);
-        animeRecyclerView.setAdapter(animeAdapter);
+        animeRV.setAdapter(animeAdapter);
 
         ARef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -132,29 +139,176 @@ public class MainActivity4 extends AppCompatActivity {
             }
         });
 
+        //load Cartoon after Anime
+        loadCartoonData();
     }
 
-    //SearchMenu
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.search_menu,menu);
-//        MenuItem menuItem = menu.findItem(R.id.action_search);
-//        SearchView searchView = (SearchView) menuItem.getActionView();
-//        searchView.setQueryHint("Type here to search");
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String s) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String s) {
-//                sliderAdapter.getF
-//                return false;
-//            }
-//        });
-//        return super.onCreateOptionsMenu(menu);
-//    }
+    private void loadCartoonData() {
+        DatabaseReference CTRef = database.getReference("Cartoon");
+        cartoonRV = findViewById(R.id.rv_Cartoon);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        cartoonRV.setLayoutManager(layoutManager);
+        cartoonModels = new ArrayList<>();
+        cartoonAdapter = new CartoonAdapter(cartoonModels);
+        cartoonRV.setAdapter(cartoonAdapter);
+
+        CTRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot contentSnapShot:snapshot.getChildren()){
+                    CartoonModel dataModel = contentSnapShot.getValue(CartoonModel.class);
+                    cartoonModels.add(dataModel);
+                }
+                cartoonAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+        loadComedyData();
+    }
+
+    private void loadComedyData() {
+        DatabaseReference CRef = database.getReference("Comedy");
+        comedyRV = findViewById(R.id.rv_Comedy);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        comedyRV.setLayoutManager(layoutManager);
+        comedyModels = new ArrayList<>();
+        comedyAdapter = new ComedyAdapter(comedyModels);
+        comedyRV.setAdapter(comedyAdapter);
+
+        CRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot contentSnapShot : snapshot.getChildren()) {
+                    ComedyModel dataModel = contentSnapShot.getValue(ComedyModel.class);
+                    comedyModels.add(dataModel);
+                }
+                cartoonAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        loadDramaData();
+    }
+
+    private void loadDramaData() {
+        DatabaseReference DRef = database.getReference("Drama");
+        dramaRV = findViewById(R.id.rv_Drama);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        dramaRV.setLayoutManager(layoutManager);
+        dramaModels = new ArrayList<>();
+        dramaAdapter = new DramaAdapter(dramaModels);
+        dramaRV.setAdapter(dramaAdapter);
+
+        DRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot contentSnapShot : snapshot.getChildren()) {
+                    DramaModel dataModel = contentSnapShot.getValue(DramaModel.class);
+                    dramaModels.add(dataModel);
+                }
+                dramaAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        loadRomanticData();
+    }
+
+    private void loadRomanticData() {
+        DatabaseReference RRef = database.getReference("Romantic");
+        romanRV = findViewById(R.id.rv_Romantic);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        romanRV.setLayoutManager(layoutManager);
+        romanticModels = new ArrayList<>();
+        romanticAdapter = new RomanticAdapter(romanticModels);
+        romanRV.setAdapter(romanticAdapter);
+
+        RRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot contentSnapShot : snapshot.getChildren()) {
+                    RomanticModel dataModel = contentSnapShot.getValue(RomanticModel.class);
+                    romanticModels.add(dataModel);
+                }
+                romanticAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+    }
+
+    private void loadScaryData() {
+        DatabaseReference SRef = database.getReference("Scary");
+        scaryRV = findViewById(R.id.rv_Scary);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        scaryRV.setLayoutManager(layoutManager);
+        scaryModels = new ArrayList<>();
+        scaryAdapter = new ScaryAdapter(scaryModels);
+        scaryRV.setAdapter(scaryAdapter);
+
+        SRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot contentSnapShot : snapshot.getChildren()) {
+                    ScaryModel dataModel = contentSnapShot.getValue(ScaryModel.class);
+                    scaryModels.add(dataModel);
+                }
+                scaryAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        loadSciFiData();
+    }
+
+    private void loadSciFiData() {
+        DatabaseReference SFRef = database.getReference("Sci-fi");
+        scifiRV = findViewById(R.id.rv_SciFi);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        scifiRV.setLayoutManager(layoutManager);
+        sciFiModels = new ArrayList<>();
+        sciFiAdapter = new SciFiAdapter(sciFiModels);
+        scifiRV.setAdapter(sciFiAdapter);
+
+        SFRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot contentSnapShot : snapshot.getChildren()) {
+                    SciFiModel dataModel = contentSnapShot.getValue(SciFiModel.class);
+                    sciFiModels.add(dataModel);
+                }
+                sciFiAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
 
     private void loadFireBaseForSlider() {
         myRef.child("feature").addListenerForSingleValueEvent(new ValueEventListener() {

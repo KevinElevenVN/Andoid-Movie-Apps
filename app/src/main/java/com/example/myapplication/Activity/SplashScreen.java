@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 
-public class MainActivity3 extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity {
 
     private static int SPLASH_SCREEN = 3000;
 
@@ -43,7 +43,7 @@ public class MainActivity3 extends AppCompatActivity {
         slogan.setAnimation(bottomAnim);
 
         new Handler().postDelayed(() -> {
-            Intent i = new Intent(MainActivity3.this, MainActivity2.class);
+            Intent i = new Intent(SplashScreen.this, MainActivity4.class);
             startActivity(i);
             finish();
         },SPLASH_SCREEN);

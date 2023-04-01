@@ -49,7 +49,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.MyViewHolder
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
-            textView = itemView.findViewById(R.id.movie_tilte);
+            textView = itemView.findViewById(R.id.movie_title);
         }
     }
 }

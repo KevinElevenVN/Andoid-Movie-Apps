@@ -10,30 +10,31 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.Model.CartoonModel;
+import com.example.myapplication.Model.ScaryModel;
 
 import java.util.List;
 
-public class CartoonAdapter extends RecyclerView.Adapter<CartoonAdapter.MyViewHolder> {
-    List<CartoonModel> dataModels;
+public class ScaryAdapter extends RecyclerView.Adapter<ScaryAdapter.MyViewHolder> {
+    List<ScaryModel> dataModels;
 
-    public CartoonAdapter(List<CartoonModel> dataModels) {this.dataModels = dataModels;}
+    public ScaryAdapter(List<ScaryModel> dataModels){
+        this.dataModels = dataModels;
+    }
 
-    @androidx.annotation.NonNull
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@androidx.annotation.NonNull ViewGroup parent, int viewType) {
+    public ScaryAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.movie_card,parent,false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@androidx.annotation.NonNull MyViewHolder holder, int position) {
-        holder.textView.setText(dataModels.get(position).getCTtitle());
+    public void onBindViewHolder(@NonNull ScaryAdapter.MyViewHolder holder, int position) {
+        holder.textView.setText(dataModels.get(position).getStitle());
         Glide.with(holder.itemView.getContext()).
-                load(dataModels.get(position).getCTthumb()).into(holder.imageView);
+                load(dataModels.get(position).getSthumb()).into(holder.imageView);
     }
-
 
     @Override
     public int getItemCount() {

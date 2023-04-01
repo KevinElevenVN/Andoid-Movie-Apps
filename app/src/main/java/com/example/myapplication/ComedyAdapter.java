@@ -10,41 +10,42 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.Model.CartoonModel;
+import com.example.myapplication.Model.ComedyModel;
 
 import java.util.List;
 
-public class CartoonAdapter extends RecyclerView.Adapter<CartoonAdapter.MyViewHolder> {
-    List<CartoonModel> dataModels;
+public class ComedyAdapter extends RecyclerView.Adapter<ComedyAdapter.MyViewHoler> {
+    List<ComedyModel> dataModels;
 
-    public CartoonAdapter(List<CartoonModel> dataModels) {this.dataModels = dataModels;}
+    public ComedyAdapter(List<ComedyModel> dataModels){
+        this.dataModels = dataModels;
+    }
 
-    @androidx.annotation.NonNull
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@androidx.annotation.NonNull ViewGroup parent, int viewType) {
+    public ComedyAdapter.MyViewHoler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.movie_card,parent,false);
-        return new MyViewHolder(view);
+        return new MyViewHoler(view);
     }
 
     @Override
-    public void onBindViewHolder(@androidx.annotation.NonNull MyViewHolder holder, int position) {
-        holder.textView.setText(dataModels.get(position).getCTtitle());
+    public void onBindViewHolder(@NonNull ComedyAdapter.MyViewHoler holder, int position) {
+        holder.textView.setText(dataModels.get(position).getCtitle());
         Glide.with(holder.itemView.getContext()).
-                load(dataModels.get(position).getCTthumb()).into(holder.imageView);
+                load(dataModels.get(position).getCthumb()).into(holder.imageView);
     }
-
 
     @Override
     public int getItemCount() {
         return dataModels.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHoler extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHoler(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             textView = itemView.findViewById(R.id.movie_title);

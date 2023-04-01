@@ -10,14 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.Model.CartoonModel;
+import com.example.myapplication.Model.SciFiModel;
 
 import java.util.List;
 
-public class CartoonAdapter extends RecyclerView.Adapter<CartoonAdapter.MyViewHolder> {
-    List<CartoonModel> dataModels;
+public class SciFiAdapter extends RecyclerView.Adapter<SciFiAdapter.MyViewHolder> {
+    List<SciFiModel> dataModels;
 
-    public CartoonAdapter(List<CartoonModel> dataModels) {this.dataModels = dataModels;}
+    public SciFiAdapter(List<SciFiModel> dataModels){
+        this.dataModels = dataModels;
+    }
 
     @androidx.annotation.NonNull
     @Override
@@ -29,18 +31,17 @@ public class CartoonAdapter extends RecyclerView.Adapter<CartoonAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@androidx.annotation.NonNull MyViewHolder holder, int position) {
-        holder.textView.setText(dataModels.get(position).getCTtitle());
+        holder.textView.setText(dataModels.get(position).getSFtitle());
         Glide.with(holder.itemView.getContext()).
-                load(dataModels.get(position).getCTthumb()).into(holder.imageView);
+                load(dataModels.get(position).getSFthumb()).into(holder.imageView);
     }
-
 
     @Override
     public int getItemCount() {
         return dataModels.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
         TextView textView;
 

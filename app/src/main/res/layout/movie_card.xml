@@ -11,11 +11,11 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:transitionName="ImageMain"
         android:id="@+id/imageView"
         android:layout_width="123dp"
         android:layout_height="178dp"
         android:scaleType="centerCrop"
-        android:transitionName="ImageMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
         app:srcCompat="@drawable/logo2_removebg" />
 
     <TextView
-        android:id="@+id/movie_tilte"
+        android:id="@+id/movie_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="TextView"
