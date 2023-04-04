@@ -6,9 +6,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -99,6 +101,17 @@ public class HomeActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_item,menu);
         return true;
+    }
+
+    Intent intent;
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.mn_search:
+                intent = new Intent(this,Se)
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void loadMovieData() {
