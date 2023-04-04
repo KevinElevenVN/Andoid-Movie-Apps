@@ -9,12 +9,14 @@ public class ScaryModel {
     String Srating;
     String Sthumb;
     String Stitle;
+    String Scover;
+    String Slink;
 
     public ScaryModel() {
     }
 
     public ScaryModel(String scast, String scountry, String sdesc, String seps,
-                      String slength, String srating, String sthumb, String stitle) {
+                      String slength, String srating, String sthumb, String stitle,String scover,String slink) {
         Scast = scast;
         Scountry = scountry;
         Sdesc = sdesc;
@@ -23,6 +25,24 @@ public class ScaryModel {
         Srating = srating;
         Sthumb = sthumb;
         Stitle = stitle;
+        Scover = scover;
+        Slink = slink;
+    }
+
+    public String getScover() {
+        return Scover;
+    }
+
+    public void setScover(String scover) {
+        Scover = scover;
+    }
+
+    public String getSlink() {
+        return Slink;
+    }
+
+    public void setSlink(String slink) {
+        Slink = slink;
     }
 
     public String getScast() {

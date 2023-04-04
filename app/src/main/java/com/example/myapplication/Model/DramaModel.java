@@ -9,11 +9,13 @@ public class DramaModel {
     String Drating;
     String Dthumb;
     String Dtitle;
+    String Dcover;
+    String Dlink;
 
     public DramaModel(){}
 
     public DramaModel(String dcast, String dcountry, String ddesc, String deps,
-                      String dlength, String drating, String dthumb, String dtitle) {
+                      String dlength, String drating, String dthumb, String dtitle,String dcover,String dlink) {
         Dcast = dcast;
         Dcountry = dcountry;
         Ddesc = ddesc;
@@ -22,6 +24,24 @@ public class DramaModel {
         Drating = drating;
         Dthumb = dthumb;
         Dtitle = dtitle;
+        Dlink = dlink;
+        Dcover = dcover;
+    }
+
+    public String getDcover() {
+        return Dcover;
+    }
+
+    public void setDcover(String dcover) {
+        Dcover = dcover;
+    }
+
+    public String getDlink() {
+        return Dlink;
+    }
+
+    public void setDlink(String dlink) {
+        Dlink = dlink;
     }
 
     public String getDcast() {

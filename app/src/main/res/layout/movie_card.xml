@@ -11,7 +11,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:transitionName="ImageMain"
+        android:transitionName="imageMain"
         android:id="@+id/imageView"
         android:layout_width="123dp"
         android:layout_height="178dp"

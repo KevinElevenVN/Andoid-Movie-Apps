@@ -9,11 +9,13 @@ public class RomanticModel {
     String Rrating;
     String Rthumb;
     String Rtitle;
+    String Rcover;
+    String Rlink;
 
     public RomanticModel() {}
 
     public RomanticModel(String rcast, String rcountry, String rdesc, String reps,
-                         String rlength, String rrating, String rthumb, String rtitle) {
+                         String rlength, String rrating, String rthumb, String rtitle,String rcover,String rlink) {
         Rcast = rcast;
         Rcountry = rcountry;
         Rdesc = rdesc;
@@ -22,6 +24,24 @@ public class RomanticModel {
         Rrating = rrating;
         Rthumb = rthumb;
         Rtitle = rtitle;
+        Rcover = rcover;
+        Rlink = rlink;
+    }
+
+    public String getRcover() {
+        return Rcover;
+    }
+
+    public void setRcover(String rcover) {
+        Rcover = rcover;
+    }
+
+    public String getRlink() {
+        return Rlink;
+    }
+
+    public void setRlink(String rlink) {
+        Rlink = rlink;
     }
 
     public String getRcast() {

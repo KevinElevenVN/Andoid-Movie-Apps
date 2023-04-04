@@ -9,11 +9,13 @@ public class ComedyModel {
     String Crating;
     String Cthumb;
     String Ctitle;
+    String Ccover;
+    String Clink;
 
     public ComedyModel(){}
 
     public ComedyModel(String ccast, String ccountry, String cdesc, String ceps,
-                       String clength, String crating, String cthumb, String ctitle) {
+                       String clength, String crating, String cthumb, String ctitle,String clink,String ccover) {
         Ccast = ccast;
         Ccountry = ccountry;
         Cdesc = cdesc;
@@ -22,6 +24,24 @@ public class ComedyModel {
         Crating = crating;
         Cthumb = cthumb;
         Ctitle = ctitle;
+        Ccover = ccover;
+        Clink = clink;
+    }
+
+    public String getCcover() {
+        return Ccover;
+    }
+
+    public void setCcover(String ccover) {
+        Ccover = ccover;
+    }
+
+    public String getClink() {
+        return Clink;
+    }
+
+    public void setClink(String clink) {
+        Clink = clink;
     }
 
     public String getCcast() {

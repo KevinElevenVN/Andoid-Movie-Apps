@@ -9,12 +9,14 @@ public class SciFiModel {
     String SFrating;
     String SFthumb;
     String SFtitle;
+    String SFcover;
+    String SFlink;
 
     public SciFiModel() {
     }
 
     public SciFiModel(String SFcast, String SFcountry, String SFdesc, String SFeps,
-                      String SFlength, String SFrating, String SFthumb, String SFtitle) {
+                      String SFlength, String SFrating, String SFthumb, String SFtitle,String SFcover,String SFlink) {
         this.SFcast = SFcast;
         this.SFcountry = SFcountry;
         this.SFdesc = SFdesc;
@@ -23,6 +25,24 @@ public class SciFiModel {
         this.SFrating = SFrating;
         this.SFthumb = SFthumb;
         this.SFtitle = SFtitle;
+        this.SFcover = SFcover;
+        this.SFlink = SFlink;
+    }
+
+    public String getSFcover() {
+        return SFcover;
+    }
+
+    public void setSFcover(String SFcover) {
+        this.SFcover = SFcover;
+    }
+
+    public String getSFlink() {
+        return SFlink;
+    }
+
+    public void setSFlink(String SFlink) {
+        this.SFlink = SFlink;
     }
 
     public String getSFcast() {

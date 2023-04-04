@@ -8,10 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.MenuInflater;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.myapplication.AnimeAdapter;
@@ -31,7 +29,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.RomanticAdapter;
 import com.example.myapplication.ScaryAdapter;
 import com.example.myapplication.SciFiAdapter;
-import com.google.android.material.slider.Slider;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,14 +38,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
-import com.smarteist.autoimageslider.SliderViewAdapter;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class MainActivity4 extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
@@ -75,7 +68,7 @@ public class MainActivity4 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main4);
+        setContentView(R.layout.home_screen);
 
         Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -99,6 +92,13 @@ public class MainActivity4 extends AppCompatActivity {
         loadFireBaseForSlider();
         loadAnimeData();
         loadScaryData();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_item,menu);
+        return true;
     }
 
     private void loadMovieData() {
@@ -322,7 +322,7 @@ public class MainActivity4 extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity4.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

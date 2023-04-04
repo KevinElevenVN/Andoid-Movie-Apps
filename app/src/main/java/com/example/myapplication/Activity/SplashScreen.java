@@ -26,7 +26,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.splash_screen);
 
         //Animations
         topAnim= AnimationUtils.loadAnimation(this,R.anim.top_animation);
@@ -43,7 +43,7 @@ public class SplashScreen extends AppCompatActivity {
         slogan.setAnimation(bottomAnim);
 
         new Handler().postDelayed(() -> {
-            Intent i = new Intent(SplashScreen.this, MainActivity4.class);
+            Intent i = new Intent(SplashScreen.this, HomeActivity.class);
             startActivity(i);
             finish();
         },SPLASH_SCREEN);
