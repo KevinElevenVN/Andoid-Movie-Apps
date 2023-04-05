@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="toolbar">#0A1A73</color>
+
+<!--    SwitchColor-->
+    <color name="disable_foregound_grey">@color/white</color>
+    <color name="disable_thumb_grey">@color/white</color>
+    <color name="enable_thumb_green">#46bdbf</color>
 </resources>

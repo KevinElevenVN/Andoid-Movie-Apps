@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.SettingFragment"
+    android:background="@color/purple_700"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/toolbar"
+        android:backgroundTint="@color/toolbar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginVertical="8dp"
+            app:titleTextColor="@color/white"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@android:color/transparent" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Header: AVT + Tên Tài Khoản -->
     <LinearLayout
@@ -9,13 +31,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:backgroundTint="@color/white">
 
         <ImageView
             android:id="@+id/avatar_image"
             android:src="@drawable/baseline_account_circle_24"
             android:layout_width="48dp"
-            android:layout_height="48dp"/>
+            android:layout_height="48dp" />
 
         <TextView
             android:id="@+id/account_name_text"
@@ -24,17 +47,15 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <!-- Divider line 1-->
     <View
         android:id="@+id/divider_1"
         android:layout_below="@id/Set_header_layout"
-        android:background="@color/black"
-        android:layout_margin="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        style="@style/Divider"/>
 
     <!-- Thông tin tài khoản -->
     <LinearLayout
@@ -42,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider_1"
-        android:paddingLeft="15dp">
+        android:paddingLeft="10dp">
 
         <ImageView
             android:layout_width="30dp"
@@ -52,29 +73,22 @@
             android:id="@+id/account_info_text"
             android:text="Thông tin tài khoản"
             android:textSize="18sp"
-            android:layout_width="wrap_content"
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            />
+            android:layout_marginStart="15dp"
+            android:textColor="@color/white"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_forward_ios_24"
-            android:layout_marginLeft="152dp"/>
+            android:src="@drawable/baseline_arrow_forward_ios_24" />
 
     </LinearLayout>
 
     <!-- Divider line 2 -->
     <View
         android:id="@+id/divider_2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/Set_info_account"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/black" />
+        android:layout_below="@id/Set_header_layout"
+        style="@style/Divider"/>
 
     <!--Đang xem-->
     <LinearLayout
@@ -91,15 +105,14 @@
         <TextView
             android:text="Đang xem"
             android:textSize="18sp"
-            android:layout_width="wrap_content"
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            />
+            android:textColor="@color/white"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_forward_ios_24"
-            android:layout_marginLeft="230dp"/>
+            android:src="@drawable/baseline_arrow_forward_ios_24" />
     </LinearLayout>
 
 
@@ -119,28 +132,21 @@
         <TextView
             android:text="Yêu thích"
             android:textSize="18sp"
-            android:layout_width="wrap_content"
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            />
+            android:textColor="@color/white"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_forward_ios_24"
-            android:layout_marginLeft="235dp"/>
+            android:src="@drawable/baseline_arrow_forward_ios_24" />
     </LinearLayout>
 
     <!-- Divider line 3 -->
     <View
         android:id="@+id/divider_3"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@id/Set_Favourite"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/black" />
+        android:layout_below="@id/Set_header_layout"
+        style="@style/Divider"/>
 
     <!--Các gói-->
     <LinearLayout
@@ -153,19 +159,21 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/baseline_watch_later_24" />
+            android:src="@drawable/baseline_brightness_4_24" />
         <TextView
-            android:text="Các gói phim"
-            android:textSize="18sp"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:text="Change Theme"
+            android:layout_marginStart="15sp"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+        <Switch
+            android:id="@+id/switch_theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_forward_ios_24"
-            android:layout_marginLeft="205dp"/>
+            android:theme="@style/SCBSwitch"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
     </LinearLayout>
 
     <!--Điều khoản sử dụng-->
@@ -184,15 +192,14 @@
         <TextView
             android:text="Điều khoản sử dụng"
             android:textSize="18sp"
-            android:layout_width="wrap_content"
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            />
+            android:textColor="@color/white"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_forward_ios_24"
-            android:layout_marginLeft="150dp"/>
+            android:src="@drawable/baseline_arrow_forward_ios_24" />
     </LinearLayout>
 
     <!--Chính sách-->
@@ -211,28 +218,21 @@
         <TextView
             android:text="Chính sách sử dụng"
             android:textSize="18sp"
-            android:layout_width="wrap_content"
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            />
+            android:layout_marginStart="15dp"
+            android:textColor="@color/white"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_forward_ios_24"
-            android:layout_marginLeft="150dp"/>
+            android:src="@drawable/baseline_arrow_forward_ios_24" />
     </LinearLayout>
 
     <!-- Divider line 4 -->
     <View
         android:id="@+id/divider_4"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@id/Policy"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/black" />
+        android:layout_below="@id/Set_header_layout"
+        style="@style/Divider"/>
 
     <!--Liên hệ-->
     <LinearLayout
@@ -250,15 +250,14 @@
         <TextView
             android:text="Liên hệ"
             android:textSize="18sp"
-            android:layout_width="wrap_content"
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            />
+            android:textColor="@color/white"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_forward_ios_24"
-            android:layout_marginLeft="250dp"/>
+            android:src="@drawable/baseline_arrow_forward_ios_24" />
     </LinearLayout>
 
     <!--Góp ý-->
@@ -277,15 +276,14 @@
         <TextView
             android:text="Góp ý"
             android:textSize="18sp"
-            android:layout_width="wrap_content"
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            />
+            android:textColor="@color/white"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_forward_ios_24"
-            android:layout_marginLeft="265dp"/>
+            android:src="@drawable/baseline_arrow_forward_ios_24" />
     </LinearLayout>
 
     <!--Giới thiệu-->
@@ -304,14 +302,14 @@
         <TextView
             android:text="Giới thiệu"
             android:textSize="18sp"
-            android:layout_width="wrap_content"
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            />
+            android:textColor="@color/white"/>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_forward_ios_24"
-            android:layout_marginLeft="235dp"/>
+            android:src="@drawable/baseline_arrow_forward_ios_24" />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

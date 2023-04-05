@@ -3,10 +3,11 @@ package com.example.myapplication.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,7 @@ import com.example.myapplication.AnimeAdapter;
 import com.example.myapplication.CartoonAdapter;
 import com.example.myapplication.ComedyAdapter;
 import com.example.myapplication.DramaAdapter;
+import com.example.myapplication.Fragment.SettingFragment;
 import com.example.myapplication.Model.AnimeModel;
 import com.example.myapplication.Model.CartoonModel;
 import com.example.myapplication.Model.ComedyModel;
@@ -77,6 +79,13 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         getSupportActionBar().setLogo(R.drawable.toolbar_logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                display(item.getItemId());
+                return true;
+            }
+        });
 
         FirebaseApp.initializeApp(this);
         SliderView sliderView = findViewById(R.id.sliderView);
@@ -103,14 +112,22 @@ public class HomeActivity extends AppCompatActivity {
         return true;
     }
 
-    Intent intent;
+    void display(int id){
+        Fragment fragment = null;
+        switch (id){
+            case R.id.mn_setting:
+                fragment = new SettingFragment();
+                break;
+        }
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        //replace framelayout(id content)
+        ft.replace(R.id.content,fragment);
+        //save the display
+        ft.commit();
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.mn_search:
-                intent = new Intent(this,Se)
-
-        }
         return super.onOptionsItemSelected(item);
     }
 
