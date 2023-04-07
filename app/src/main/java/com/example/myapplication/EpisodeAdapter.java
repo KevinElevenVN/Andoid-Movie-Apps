@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.Activity.PlayerActivity;
 import com.example.myapplication.Model.EpisodeModel;
 
 import java.util.List;
@@ -31,6 +33,11 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.MyVH> {
     @Override
     public void onBindViewHolder(@NonNull EpisodeAdapter.MyVH holder, int position) {
         Glide.with(holder.itemView).load(models.get(position).getUrl()).into(holder.part_image);
+        holder.itemView.setOnClickListener(view -> {
+            Intent i = new Intent(view.getContext(), PlayerActivity.class);
+            i.putExtra("vid",models.get(position).getVidurl());
+            holder.itemView.getContext().startActivity(i);
+        });
     }
 
     @Override

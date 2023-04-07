@@ -19,6 +19,7 @@ import com.example.myapplication.AnimeAdapter;
 import com.example.myapplication.CartoonAdapter;
 import com.example.myapplication.ComedyAdapter;
 import com.example.myapplication.DramaAdapter;
+import com.example.myapplication.Fragment.SearchFragment;
 import com.example.myapplication.Fragment.SettingFragment;
 import com.example.myapplication.Model.AnimeModel;
 import com.example.myapplication.Model.CartoonModel;
@@ -79,12 +80,9 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         getSupportActionBar().setLogo(R.drawable.toolbar_logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                display(item.getItemId());
-                return true;
-            }
+        toolbar.setOnMenuItemClickListener(item -> {
+            display(item.getItemId());
+            return true;
         });
 
         FirebaseApp.initializeApp(this);
@@ -117,6 +115,9 @@ public class HomeActivity extends AppCompatActivity {
         switch (id){
             case R.id.mn_setting:
                 fragment = new SettingFragment();
+                break;
+            case R.id.mn_search:
+                fragment = new SearchFragment();
                 break;
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
