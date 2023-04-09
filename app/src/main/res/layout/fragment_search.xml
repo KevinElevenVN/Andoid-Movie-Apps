@@ -12,7 +12,7 @@
         android:padding="10dp"
         android:id="@+id/search_view_content_container"
         android:layout_margin="5dp"
-        android:background="@"
+
         />
 
     <androidx.recyclerview.widget.RecyclerView

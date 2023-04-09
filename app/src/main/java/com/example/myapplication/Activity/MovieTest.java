@@ -33,6 +33,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -50,6 +51,7 @@ public class MovieTest extends AppCompatActivity {
     RecyclerView rv_anime;
     MovieAdapter movieAdapter;
     ArrayList<MovieModel> movieModels;
+    Adapter adapter;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef;
@@ -130,8 +132,16 @@ public class MovieTest extends AppCompatActivity {
         }).addOnFailureListener(e -> {
             Toast.makeText(this, "ERORR!!!", Toast.LENGTH_LONG).show();
         });
-
     }
+
+//    private void loadAnimeData(){
+//        db.collection("Film").document("MvgiKUDvsYUzZmGjzoV6").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//
+//            }
+//        })
+//    }
 
     public void renewItems(View view){
         featureModels = new ArrayList<>();
