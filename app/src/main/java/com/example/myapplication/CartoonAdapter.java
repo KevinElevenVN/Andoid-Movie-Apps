@@ -15,13 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.Activity.DetailsActivity;
 import com.example.myapplication.Model.CartoonModel;
+import com.example.myapplication.Model.MovieModel;
 
 import java.util.List;
 
 public class CartoonAdapter extends RecyclerView.Adapter<CartoonAdapter.MyViewHolder> {
-    List<CartoonModel> dataModels;
+    List<MovieModel> dataModels;
 
-    public CartoonAdapter(List<CartoonModel> dataModels) {this.dataModels = dataModels;}
+    public CartoonAdapter(List<MovieModel> dataModels) {this.dataModels = dataModels;}
 
     @androidx.annotation.NonNull
     @Override
@@ -33,32 +34,32 @@ public class CartoonAdapter extends RecyclerView.Adapter<CartoonAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@androidx.annotation.NonNull MyViewHolder holder, int position) {
-        holder.textView.setText(dataModels.get(position).getCTtitle());
+        holder.textView.setText(dataModels.get(position).getTitle());
         Glide.with(holder.itemView.getContext()).
-                load(dataModels.get(position).getCTthumb()).into(holder.imageView);
+                load(dataModels.get(position).getThumb()).into(holder.imageView);
 
-        holder.imageView.setOnClickListener(view -> {
-            //when click send data to details activity
-            Intent sendData2Detail = new Intent(holder.imageView.getContext(), DetailsActivity.class);
-            sendData2Detail.putExtra("title",dataModels.get(position).getCTtitle());
-            sendData2Detail.putExtra("country",dataModels.get(position).getCTcountry());
-            sendData2Detail.putExtra("cover",dataModels.get(position).getCTcover());
-            sendData2Detail.putExtra("desc",dataModels.get(position).getCTdesc());
-            sendData2Detail.putExtra("eps",dataModels.get(position).getCTeps());
-            sendData2Detail.putExtra("length",dataModels.get(position).getCTlength());
-            sendData2Detail.putExtra("link",dataModels.get(position).getCTlink());
-            sendData2Detail.putExtra("rating",dataModels.get(position).getCTrating());
-            //sendData2Detail.putExtra("thumb",dataModels.get(position).getAthumb());
-            sendData2Detail.putExtra("cast",dataModels.get(position).getCTcast());
-
-            //transition animation 2 detail
-            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
-                    .makeSceneTransitionAnimation((Activity)holder.itemView.getContext(),holder.imageView,
-                            "imageMain");
-            //sharedElementName is the same as xml file (imageMain)
-            holder.itemView.getContext().startActivity(sendData2Detail,optionsCompat.toBundle());
-
-        });
+//        holder.imageView.setOnClickListener(view -> {
+//            //when click send data to details activity
+//            Intent sendData2Detail = new Intent(holder.imageView.getContext(), DetailsActivity.class);
+//            sendData2Detail.putExtra("title",dataModels.get(position).getCTtitle());
+//            sendData2Detail.putExtra("country",dataModels.get(position).getCTcountry());
+//            sendData2Detail.putExtra("cover",dataModels.get(position).getCTcover());
+//            sendData2Detail.putExtra("desc",dataModels.get(position).getCTdesc());
+//            sendData2Detail.putExtra("eps",dataModels.get(position).getCTeps());
+//            sendData2Detail.putExtra("length",dataModels.get(position).getCTlength());
+//            sendData2Detail.putExtra("link",dataModels.get(position).getCTlink());
+//            sendData2Detail.putExtra("rating",dataModels.get(position).getCTrating());
+//            //sendData2Detail.putExtra("thumb",dataModels.get(position).getAthumb());
+//            sendData2Detail.putExtra("cast",dataModels.get(position).getCTcast());
+//
+//            //transition animation 2 detail
+//            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
+//                    .makeSceneTransitionAnimation((Activity)holder.itemView.getContext(),holder.imageView,
+//                            "imageMain");
+//            //sharedElementName is the same as xml file (imageMain)
+//            holder.itemView.getContext().startActivity(sendData2Detail,optionsCompat.toBundle());
+//
+//        });
     }
 
 

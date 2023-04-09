@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.Activity.DetailsActivity;
 import com.example.myapplication.Model.AnimeModel;
+import com.example.myapplication.Model.MovieModel;
 
 import java.util.List;
 
@@ -36,31 +37,31 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@androidx.annotation.NonNull MyViewHolder holder, int position) {
-        holder.textView.setText(dataModels.get(position).getAtitle());
+        holder.textView.setText(dataModels.get(position).getTitle());
         Glide.with(holder.itemView.getContext()).
-                load(dataModels.get(position).getAthumb()).into(holder.imageView);
+                load(dataModels.get(position).getThumb()).into(holder.imageView);
 
-        holder.imageView.setOnClickListener(view -> {
-            //when click send data to details activity
-            Intent sendData2Detail = new Intent(holder.imageView.getContext(), DetailsActivity.class);
-            sendData2Detail.putExtra("title",dataModels.get(position).getAtitle());
-            sendData2Detail.putExtra("country",dataModels.get(position).getAcountry());
-            sendData2Detail.putExtra("cover",dataModels.get(position).getAcover());
-            sendData2Detail.putExtra("desc",dataModels.get(position).getAdesc());
-            sendData2Detail.putExtra("eps",dataModels.get(position).getAeps());
-            sendData2Detail.putExtra("length",dataModels.get(position).getAlength());
-            sendData2Detail.putExtra("link",dataModels.get(position).getAlink());
-            sendData2Detail.putExtra("rating",dataModels.get(position).getArating());
-            //sendData2Detail.putExtra("thumb",dataModels.get(position).getAthumb());
-            sendData2Detail.putExtra("cast",dataModels.get(position).getAcast());
-
-            //transition animation 2 detail
-            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
-                    .makeSceneTransitionAnimation((Activity)holder.itemView.getContext(),holder.imageView,
-                            "imageMain");
-            //sharedElementName is the same as xml file (imageMain)
-            holder.itemView.getContext().startActivity(sendData2Detail,optionsCompat.toBundle());
-        });
+//        holder.imageView.setOnClickListener(view -> {
+//            //when click send data to details activity
+//            Intent sendData2Detail = new Intent(holder.imageView.getContext(), DetailsActivity.class);
+//            sendData2Detail.putExtra("title",dataModels.get(position).getAtitle());
+//            sendData2Detail.putExtra("country",dataModels.get(position).getAcountry());
+//            sendData2Detail.putExtra("cover",dataModels.get(position).getAcover());
+//            sendData2Detail.putExtra("desc",dataModels.get(position).getAdesc());
+//            sendData2Detail.putExtra("eps",dataModels.get(position).getAeps());
+//            sendData2Detail.putExtra("length",dataModels.get(position).getAlength());
+//            sendData2Detail.putExtra("link",dataModels.get(position).getAlink());
+//            sendData2Detail.putExtra("rating",dataModels.get(position).getArating());
+//            //sendData2Detail.putExtra("thumb",dataModels.get(position).getAthumb());
+//            sendData2Detail.putExtra("cast",dataModels.get(position).getAcast());
+//
+//            //transition animation 2 detail
+//            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
+//                    .makeSceneTransitionAnimation((Activity)holder.itemView.getContext(),holder.imageView,
+//                            "imageMain");
+//            //sharedElementName is the same as xml file (imageMain)
+//            holder.itemView.getContext().startActivity(sendData2Detail,optionsCompat.toBundle());
+//        });
     }
 
     @Override

@@ -3,110 +3,114 @@ package com.example.myapplication.Model;
 import com.example.myapplication.AnimeAdapter;
 
 public class AnimeModel {
-    String Acast;
-    String Acountry;
-    String Acover;
-    String Adesc;
-    String Aeps;
-    String Alength;
-    String Alink;
-    String Arating;
-    String Athumb;
-    String Atitle;
+    //    String Cast;
+//    String Country;
+//    String Cover;
+//    String Description;
+//    String Episode;
+//    String Length;
+//    String Link;
+//    String Rating;
 
-    public AnimeModel(){}
+    String Title;
+    String Thumb;
 
-    public AnimeModel(String acast, String acountry, String acover, String adesc, String aeps,
-                      String alength, String alink, String arating, String athumb, String atitle) {
-        Acast = acast;
-        Acountry = acountry;
-        Acover = acover;
-        Adesc = adesc;
-        Aeps = aeps;
-        Alength = alength;
-        Alink = alink;
-        Arating = arating;
-        Athumb = athumb;
-        Atitle = atitle;
+    public AnimeModel() {
     }
 
-    public String getAcast() {
-        return Acast;
+    public AnimeModel(String thumb, String title) {
+//        Cast = cast;
+//        Country = country;
+//        Cover = cover;
+//        Description = desc;
+//        Episode = eps;
+//        Length = length;
+//        Link = link;
+//        Rating = rating;
+
+
+        Thumb = thumb;
+        Title = title;
     }
 
-    public void setAcast(String acast) {
-        Acast = acast;
+//    public String getCast() {
+//        return Cast;
+//    }
+//
+//    public void setCast(String cast) {
+//        Cast = cast;
+//    }
+//
+//    public String getCountry() {
+//        return Country;
+//    }
+//
+//    public void setCountry(String country) {
+//        Country = country;
+//    }
+//
+//    public String getCover() {
+//        return Cover;
+//    }
+//
+//    public void setCover(String cover) {
+//        Cover = cover;
+//    }
+//
+//    public String getDesc() {
+//        return Description;
+//    }
+//
+//    public void setDesc(String desc) {
+//        Description = desc;
+//    }
+//
+//    public String getEps() {
+//        return Episode;
+//    }
+//
+//    public void setEps(String eps) {
+//        Episode = eps;
+//    }
+//
+//    public String getLength() {
+//        return Length;
+//    }
+//
+//    public void setLength(String length) {
+//        Length = length;
+//    }
+//
+//    public String getLink() {
+//        return Link;
+//    }
+//
+//    public void setLink(String link) {
+//        Link = link;
+//    }
+//
+//    public String getRating() {
+//        return Rating;
+//    }
+//
+//    public void setRating(String rating) {
+//        Rating = rating;
+//    }
+
+
+    public String getThumb() {
+        return Thumb;
     }
 
-    public String getAcountry() {
-        return Acountry;
+    public void setThumb(String thumb) {
+        Thumb = thumb;
     }
 
-    public void setAcountry(String acountry) {
-        Acountry = acountry;
+    public String getTitle() {
+        return Title;
     }
 
-    public String getAcover() {
-        return Acover;
-    }
-
-    public void setAcover(String acover) {
-        Acover = acover;
-    }
-
-    public String getAdesc() {
-        return Adesc;
-    }
-
-    public void setAdesc(String adesc) {
-        Adesc = adesc;
-    }
-
-    public String getAeps() {
-        return Aeps;
-    }
-
-    public void setAeps(String aeps) {
-        Aeps = aeps;
-    }
-
-    public String getAlength() {
-        return Alength;
-    }
-
-    public void setAlength(String alength) {
-        Alength = alength;
-    }
-
-    public String getAlink() {
-        return Alink;
-    }
-
-    public void setAlink(String alink) {
-        Alink = alink;
-    }
-
-    public String getArating() {
-        return Arating;
-    }
-
-    public void setArating(String arating) {
-        Arating = arating;
-    }
-
-    public String getAthumb() {
-        return Athumb;
-    }
-
-    public void setAthumb(String athumb) {
-        Athumb = athumb;
-    }
-
-    public String getAtitle() {
-        return Atitle;
-    }
-
-    public void setAtitle(String atitle) {
-        Atitle = atitle;
+    public void setTitle(String title) {
+        Title = title;
     }
 }

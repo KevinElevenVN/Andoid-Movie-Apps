@@ -16,12 +16,12 @@ public class MovieModel {
 
     //String Thumb;
     String Title;
-    DocumentReference Thumb;
+    String Thumb;
 
     public MovieModel() {
     }
 
-    public MovieModel(DocumentReference thumb, String title) {
+    public MovieModel(String thumb, String title) {
 //        Cast = cast;
 //        Country = country;
 //        Cover = cover;
@@ -101,11 +101,11 @@ public class MovieModel {
 //    }
 
 
-    public DocumentReference getThumb() {
+    public String getThumb() {
         return Thumb;
     }
 
-    public void setThumb(DocumentReference thumb) {
+    public void setThumb(String thumb) {
         Thumb = thumb;
     }
 

@@ -166,7 +166,7 @@ public class HomeActivity extends AppCompatActivity {
         animeRV.setLayoutManager(layoutManager);
 
         animeModels = new ArrayList<>();
-        animeAdapter = new AnimeAdapter(animeModels);
+        //animeAdapter = new AnimeAdapter(animeModels);
         animeRV.setAdapter(animeAdapter);
 
         ARef.addValueEventListener(new ValueEventListener() {
@@ -198,7 +198,7 @@ public class HomeActivity extends AppCompatActivity {
         layoutManager.setStackFromEnd(true);
         cartoonRV.setLayoutManager(layoutManager);
         cartoonModels = new ArrayList<>();
-        cartoonAdapter = new CartoonAdapter(cartoonModels);
+        //cartoonAdapter = new CartoonAdapter(cartoonModels);
         cartoonRV.setAdapter(cartoonAdapter);
 
         CTRef.addValueEventListener(new ValueEventListener() {
