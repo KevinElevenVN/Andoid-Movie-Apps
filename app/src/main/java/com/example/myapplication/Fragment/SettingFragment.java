@@ -79,14 +79,13 @@ public class SettingFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Setting");
 
         toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_ios_24);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getContext(), HomeActivity.class);
-                startActivity(i);
+        toolbar.setNavigationOnClickListener(view1 -> {
+//            Intent i = new Intent(getContext(), HomeActivity.class);
+//            startActivity(i);
 //                getActivity().finish();
-            }
+            getActivity().onBackPressed();
         });
+
 
         Switch theme_switch = view.findViewById(R.id.switch_theme);
         theme_switch.setOnCheckedChangeListener((compoundButton, b) -> {

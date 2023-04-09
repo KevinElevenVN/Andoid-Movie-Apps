@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,12 +25,12 @@ import com.example.myapplication.Fragment.SettingFragment;
 import com.example.myapplication.Model.AnimeModel;
 import com.example.myapplication.Model.CartoonModel;
 import com.example.myapplication.Model.ComedyModel;
-import com.example.myapplication.Model.DataModel;
+import com.example.myapplication.Model.FeatureModel;
 import com.example.myapplication.Model.DramaModel;
 import com.example.myapplication.Model.RomanticModel;
 import com.example.myapplication.Model.ScaryModel;
 import com.example.myapplication.Model.SciFiModel;
-import com.example.myapplication.MovieAdapter;
+import com.example.myapplication.FeatureAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.RomanticAdapter;
 import com.example.myapplication.ScaryAdapter;
@@ -51,8 +52,8 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
 
-    ArrayList<DataModel> dataModels;
-    MovieAdapter sliderAdapter;
+    ArrayList<FeatureModel> dataModels;
+    FeatureAdapter sliderAdapter;
     RecyclerView animeRV, cartoonRV, comedyRV, dramaRV, romanRV, scaryRV, scifiRV;
 
     ArrayList<AnimeModel> animeModels;
@@ -80,6 +81,8 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         getSupportActionBar().setLogo(R.drawable.toolbar_logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+
+        //ClickListener for fragment
         toolbar.setOnMenuItemClickListener(item -> {
             display(item.getItemId());
             return true;
@@ -87,7 +90,7 @@ public class HomeActivity extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
         SliderView sliderView = findViewById(R.id.sliderView);
-        sliderAdapter = new MovieAdapter(this);
+        sliderAdapter = new FeatureAdapter(this);
         sliderView.setSliderAdapter(sliderAdapter);
         sliderView.setCurrentPagePosition(0);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.SCALE);
@@ -120,11 +123,23 @@ public class HomeActivity extends AppCompatActivity {
                 fragment = new SearchFragment();
                 break;
         }
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        FragmentManager fragmentManager = getFragmentManager();
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
+                .replace(R.id.content,fragment,null).addToBackStack("fragment_setting");
         //replace framelayout(id content)
-        ft.replace(R.id.content,fragment);
+//        ft.replace(R.id.content,fragment).addToBackStack(null).commit();
         //save the display
         ft.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -139,7 +154,7 @@ public class HomeActivity extends AppCompatActivity {
     private void loadAnimeData() {
         //load data from firebase
         DatabaseReference ARef = database.getReference("Anime");
-        animeRV = findViewById(R.id.rv_Anime);
+        animeRV = findViewById(R.id.rv_Movie);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
@@ -346,7 +361,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot contentslider: snapshot.getChildren()){
-                    DataModel sliderItem = contentslider.getValue(DataModel.class);
+                    FeatureModel sliderItem = contentslider.getValue(FeatureModel.class);
                     dataModels.add(sliderItem);
                 }
                 sliderAdapter.notifyDataSetChanged();
@@ -362,7 +377,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void renewItems(View view){
         dataModels = new ArrayList<>();
-        DataModel dataItems = new DataModel();
+        FeatureModel dataItems = new FeatureModel();
         dataModels.add(dataItems);
 
         sliderAdapter.renewItems(dataModels);

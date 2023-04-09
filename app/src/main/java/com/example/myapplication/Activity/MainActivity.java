@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.myapplication.Adapter;
+import com.example.myapplication.Model.MovieModel;
+import com.example.myapplication.MovieAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.Student;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.Listener 
     ArrayList<Student> students;
     FirebaseFirestore db;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,17 +34,28 @@ public class MainActivity extends AppCompatActivity implements Adapter.Listener 
         db = FirebaseFirestore.getInstance();
         rvStudent = findViewById(R.id.rvList);
         students = new ArrayList<>();
+
+
+
         studentAdapter = new Adapter(MainActivity.this, students);
         rvStudent.setAdapter(studentAdapter);
-        rvStudent.setLayoutManager((new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false)));
+
+
+        rvStudent.setLayoutManager((new LinearLayoutManager(MainActivity.this, RecyclerView.HORIZONTAL, false)));
         rvStudent.addItemDecoration(new DividerItemDecoration(MainActivity.this, DividerItemDecoration.VERTICAL));
 
+
+
+        loadData();
+    }
+
+    private void loadData() {
         db.collection("SinhVien")
                 .get()
                 .addOnCompleteListener(task -> {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String ID = document.getId();
-                        String NAME = document.get("NAME").toString();
+                        String NAME = document.getString("Name");
                         Student student = new Student(ID, NAME);
                         students.add(student);
                     }

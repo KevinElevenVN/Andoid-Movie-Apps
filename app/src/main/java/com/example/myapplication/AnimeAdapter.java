@@ -60,7 +60,6 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.MyViewHolder
                             "imageMain");
             //sharedElementName is the same as xml file (imageMain)
             holder.itemView.getContext().startActivity(sendData2Detail,optionsCompat.toBundle());
-
         });
     }
 
