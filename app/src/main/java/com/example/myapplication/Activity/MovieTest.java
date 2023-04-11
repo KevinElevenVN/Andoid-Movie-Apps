@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.graphics.Matrix;
 import android.icu.number.Scale;
 import android.net.Uri;
@@ -109,21 +110,23 @@ public class MovieTest extends AppCompatActivity {
         loadAnimeData();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void loadAnimeData() {
-        db.collection("Anime").get().addOnCompleteListener(task -> {
+        db.collection("Film").get().addOnCompleteListener(task -> {
             for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
                 String title = documentSnapshot.get("Title").toString();
-//                String cast = documentSnapshot.getString("Cast");
-//                String cover = documentSnapshot.getString("Cover");
-//                String country = documentSnapshot.getString("Country");
-//                String desc = documentSnapshot.getString("Description");
-//                String eps = documentSnapshot.getString("Episode");
-//                String length = documentSnapshot.getString("Length");
-//                String link = documentSnapshot.get("Link").toString();
-//                String rating = documentSnapshot.getString("Rating");
-                //String thumb = documentSnapshot.getString("Thumb");
+                String cast = documentSnapshot.get("Cast").toString();
+                String cover = documentSnapshot.get("Cover").toString();
+                String desc = documentSnapshot.get("Cast").toString();
+                String eps = documentSnapshot.get("Cast").toString();
+                String his = documentSnapshot.get("History").toString();
+                String length = documentSnapshot.get("Length").toString();
+                String link = documentSnapshot.get("Cast").toString();
+                String rate = documentSnapshot.get("Rate").toString();
+                String cate = documentSnapshot.get("Cate").toString();
                 String thumb = documentSnapshot.get("Thumb").toString();
-                movieModels.add(new MovieModel(thumb,title));
+                String country = documentSnapshot.get("Country").toString();
+                movieModels.add(new MovieModel(cast, country, cover, desc, eps, length, link, rate, title, thumb, his, cate));
             }
             movieAdapter.notifyDataSetChanged();
         }).addOnFailureListener(e -> {

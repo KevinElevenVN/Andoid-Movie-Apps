@@ -5,38 +5,39 @@ import com.google.firebase.firestore.DocumentReference;
 import java.lang.ref.Reference;
 
 public class MovieModel {
-//    String Cast;
-//    String Country;
-//    String Cover;
-//    String Description;
-//    String Episode;
-//    String Length;
-//    String Link;
-//    String Rating;
-
-    //String Thumb;
+    String Cast;
+    String Country;
+    String Cover;
+    String Description;
+    String Episode;
+    String Length;
+    String Link;
+    String Rating;
     String Title;
+    String Histroy;
     String Thumb;
+    String Cate;
 
     public MovieModel() {
     }
 
-    public MovieModel(String thumb, String title) {
-//        Cast = cast;
-//        Country = country;
-//        Cover = cover;
-//        Description = desc;
-//        Episode = eps;
-//        Length = length;
-//        Link = link;
-//        Rating = rating;
-
-
-        Thumb = thumb;
+    public MovieModel(String cast, String country, String cover, String description,
+                      String episode, String length, String link, String rating, String title, String thumb,String histroy,String cate) {
+        Cast = cast;
+        Country = country;
+        Cover = cover;
+        Description = description;
+        Episode = episode;
+        Length = length;
+        Link = link;
+        Rating = rating;
         Title = title;
+        Thumb = thumb;
+        Histroy = histroy;
+        Cate = cate;
     }
 
-//    public String getCast() {
+    //    public String getCast() {
 //        return Cast;
 //    }
 //
