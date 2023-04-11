@@ -5,7 +5,8 @@
         android:title="Search"
         android:id="@+id/mn_search"
         android:icon="@drawable/baseline_search_24"
-        app:showAsAction="ifRoom"/>
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always"/>
     <item
         android:title="Setting"
         android:id="@+id/mn_setting"
