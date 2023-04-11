@@ -10,7 +10,6 @@ public class FeatureModel {
     public FeatureModel(){}
 
     //constructor
-
     public FeatureModel(String title, String thumb, String vid) {
         Title = title;
         Thumb = thumb;

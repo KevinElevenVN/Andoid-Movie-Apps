@@ -3,6 +3,7 @@ package com.example.myapplication.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +44,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
 import org.checkerframework.checker.units.qual.A;
@@ -58,14 +61,12 @@ public class MovieTest extends AppCompatActivity {
     ArrayList<MovieModel> movieModels;
     ArrayList<AnimeModel> animeModels;
     AnimeAdapter animeAdapter;
-    CartoonAdapter cartoonAdapter;
     MovieAdapter movieAdapter;
 
     ArrayList<FeatureModel> featureModels;
     FeatureAdapter featureAdapter;
 
     RecyclerView rv_anime;
-    RecyclerView rv_cartoon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,60 +81,38 @@ public class MovieTest extends AppCompatActivity {
         getSupportActionBar().setLogo(R.drawable.toolbar_logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-//        SliderView sliderView = findViewById(R.id.sliderView);
-//        featureAdapter = new FeatureAdapter(this);
-//        sliderView.setSliderAdapter(featureAdapter);
-//        renewItems(sliderView);
+        FirebaseApp.initializeApp(this);
+        SliderView sliderView = findViewById(R.id.sliderView);
+        featureAdapter = new FeatureAdapter(this);
+        sliderView.setSliderAdapter(featureAdapter);
+        sliderView.setCurrentPagePosition(0);
+        sliderView.setIndicatorAnimation(IndicatorAnimationType.SCALE);
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        sliderView.setAutoCycle(true);
+        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT);
+        sliderView.setScrollTimeInSec(6);
+        renewItems(sliderView);
 
         movieModels = new ArrayList<>();
-        animeModels = new ArrayList<>();
-        animeAdapter = new AnimeAdapter(animeModels);
-        cartoonAdapter = new CartoonAdapter(movieModels);
         movieAdapter = new MovieAdapter(movieModels);
         db = FirebaseFirestore.getInstance();
 
         rv_anime = findViewById(R.id.rv_Anime);
         rv_anime.setAdapter(movieAdapter);
-        rv_anime.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
+        rv_anime.setLayoutManager(new GridLayoutManager(this,3));
 
-        rv_cartoon = findViewById(R.id.rv_Cartoon);
-        rv_cartoon.setAdapter(movieAdapter);
-        rv_cartoon.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
+//        rv_cartoon = findViewById(R.id.rv_Cartoon);
+//        rv_cartoon.setAdapter(movieAdapter);
+//        rv_cartoon.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
 
-        //loadFeatureSlider();
+        loadFeatureSlider();
         loadAnimeData();
-        //movieModels = new ArrayList<>();
-        movieModels.clear();
-        loadCartoonData();
-    }
-
-    private void loadCartoonData() {
-        db.collection("Cartoon").get().addOnCompleteListener(task -> {
-            for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                String title = documentSnapshot.getString("Title");
-//                String cast = documentSnapshot.getString("Cast");
-//                String cover = documentSnapshot.getString("Cover");
-//                String country = documentSnapshot.getString("Country");
-//                String desc = documentSnapshot.getString("Description");
-//                String eps = documentSnapshot.getString("Episode");
-//                String length = documentSnapshot.getString("Length");
-//                String link = documentSnapshot.get("Link").toString();
-//                String rating = documentSnapshot.getString("Rating");
-                String thumb = documentSnapshot.getString("Thumb");
-                MovieModel movieModel = new MovieModel(thumb,title);
-                movieModels.add(movieModel);
-            }
-            movieAdapter.notifyDataSetChanged();
-        }).addOnFailureListener(e -> {
-            Toast.makeText(this, "ERORR!!!", Toast.LENGTH_LONG).show();
-        });
     }
 
     private void loadAnimeData() {
-
         db.collection("Anime").get().addOnCompleteListener(task -> {
             for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                String title = documentSnapshot.getString("Title");
+                String title = documentSnapshot.get("Title").toString();
 //                String cast = documentSnapshot.getString("Cast");
 //                String cover = documentSnapshot.getString("Cover");
 //                String country = documentSnapshot.getString("Country");
@@ -143,9 +122,8 @@ public class MovieTest extends AppCompatActivity {
 //                String link = documentSnapshot.get("Link").toString();
 //                String rating = documentSnapshot.getString("Rating");
                 //String thumb = documentSnapshot.getString("Thumb");
-                String thumb = documentSnapshot.getString("Thumb");
-                MovieModel animeModel = new MovieModel(thumb,title);
-                movieModels.add(animeModel);
+                String thumb = documentSnapshot.get("Thumb").toString();
+                movieModels.add(new MovieModel(thumb,title));
             }
             movieAdapter.notifyDataSetChanged();
         }).addOnFailureListener(e -> {
@@ -154,17 +132,14 @@ public class MovieTest extends AppCompatActivity {
     }
 
     private void loadFeatureSlider() {
-        featureModels = new ArrayList<>();
         db.collection("Feature").get().addOnCompleteListener(task -> {
             for(QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()){
-                String Title = queryDocumentSnapshot.getString("Title");
+                String Title = queryDocumentSnapshot.get("Title").toString();
                 String Thumb = queryDocumentSnapshot.get("Thumb").toString();
                 String Vid = queryDocumentSnapshot.get("Vid").toString();
-                FeatureModel featureAdapter1 = new FeatureModel(Title,Thumb,Vid);
-                featureModels.add(featureAdapter1);
+                featureModels.add(new FeatureModel(Title,Thumb,Vid));
             }
             featureAdapter.notifyDataSetChanged();
-
         }).addOnFailureListener(e -> Toast.makeText(MovieTest.this, "Error!!!", Toast.LENGTH_SHORT).show());
     }
 
@@ -172,7 +147,6 @@ public class MovieTest extends AppCompatActivity {
         featureModels = new ArrayList<>();
         FeatureModel dataItems = new FeatureModel();
         featureModels.add(dataItems);
-
         featureAdapter.renewItems(featureModels);
         featureAdapter.deleteItems(0);
     }
