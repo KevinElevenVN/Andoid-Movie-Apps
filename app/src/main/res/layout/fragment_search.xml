@@ -10,17 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:padding="10dp"
-        android:id="@+id/search_view_content_container"
+        android:id="@+id/sV1"
         android:layout_margin="5dp"
+        android:background="@color/material_dynamic_neutral100"
         />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv1"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
 
-        android:layout_margin="10dp"
-
-        />
+        android:layout_margin="10dp" />
 
 
 </LinearLayout>
