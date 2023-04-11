@@ -84,12 +84,12 @@ public class FeatureAdapter extends SliderViewAdapter<FeatureAdapter.MyViewHolde
             throw new RuntimeException();
         }
 
-//        viewHolder.ply_button.setOnClickListener(view -> {
-//            Intent trailer_vid=new Intent(context, PlayerActivity.class);
-//            trailer_vid.putExtra("vid",dataModels.get(position).getVid());
-//            trailer_vid.putExtra("title",dataModels.get(position).getTitle());
-//            view.getContext().startActivity(trailer_vid);
-//        });
+        viewHolder.ply_button.setOnClickListener(view -> {
+            Intent trailer_vid=new Intent(context, PlayerActivity.class);
+            trailer_vid.putExtra("vid",featureModels.get(position).getVid());
+            trailer_vid.putExtra("title",featureModels.get(position).getTitle());
+            view.getContext().startActivity(trailer_vid);
+        });
     }
 
     @Override

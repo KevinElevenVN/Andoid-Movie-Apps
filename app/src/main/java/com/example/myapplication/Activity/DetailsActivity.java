@@ -33,7 +33,7 @@ public class DetailsActivity extends AppCompatActivity {
     RecyclerView part_recycler_view;
 
     ImageView cover;
-    TextView title,desc,cast,length,rating,eps,country;
+    TextView title,desc,cast,length,rating,eps,country,cate;
     String title_movie;
     String cast_movie;
     String country_movie;
@@ -43,12 +43,14 @@ public class DetailsActivity extends AppCompatActivity {
     String length_movie;
     String link_movie;
     String rating_movie;
+    String cate_movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+        cate = findViewById(R.id.cate);
         cover = findViewById(R.id.cover);
         title = findViewById(R.id.title);
         desc = findViewById(R.id.description);
@@ -68,6 +70,7 @@ public class DetailsActivity extends AppCompatActivity {
         length_movie = getIntent().getStringExtra("length");
         link_movie = getIntent().getStringExtra("link");
         rating_movie = getIntent().getStringExtra("rating");
+        cate_movie = getIntent().getStringExtra("cate");
 
         Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -81,6 +84,7 @@ public class DetailsActivity extends AppCompatActivity {
         title.setText(title_movie);
         desc.setText("Mô tả: " + desc_movie);
         cast.setText("Diễn viên: "+cast_movie);
+        cate.setText("Thể loại: "+cate_movie);
         length.setText(length_movie);
         rating.setText(rating_movie);
         eps.setText("Số tập: "+eps_movie);

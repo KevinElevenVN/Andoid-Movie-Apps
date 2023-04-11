@@ -55,13 +55,11 @@ import java.lang.ref.Reference;
 import java.util.ArrayList;
 
 public class MovieTest extends AppCompatActivity {
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef;
+//    FirebaseStorage storage = FirebaseStorage.getInstance();
+//    StorageReference storageRef;
     FirebaseFirestore db;
 
     ArrayList<MovieModel> movieModels;
-    ArrayList<AnimeModel> animeModels;
-    AnimeAdapter animeAdapter;
     MovieAdapter movieAdapter;
 
     ArrayList<FeatureModel> featureModels;
@@ -74,7 +72,6 @@ public class MovieTest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_test);
 
-        storageRef = storage.getReference();
 
         Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -86,12 +83,12 @@ public class MovieTest extends AppCompatActivity {
         SliderView sliderView = findViewById(R.id.sliderView);
         featureAdapter = new FeatureAdapter(this);
         sliderView.setSliderAdapter(featureAdapter);
-        sliderView.setCurrentPagePosition(0);
+        sliderView.setCurrentPagePosition(6);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.SCALE);
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
         sliderView.setAutoCycle(true);
         sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT);
-        sliderView.setScrollTimeInSec(6);
+        sliderView.setScrollTimeInSec(3);
         renewItems(sliderView);
 
         movieModels = new ArrayList<>();
@@ -101,10 +98,6 @@ public class MovieTest extends AppCompatActivity {
         rv_anime = findViewById(R.id.rv_Anime);
         rv_anime.setAdapter(movieAdapter);
         rv_anime.setLayoutManager(new GridLayoutManager(this,3));
-
-//        rv_cartoon = findViewById(R.id.rv_Cartoon);
-//        rv_cartoon.setAdapter(movieAdapter);
-//        rv_cartoon.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
 
         loadFeatureSlider();
         loadAnimeData();
