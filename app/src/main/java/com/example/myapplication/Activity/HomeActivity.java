@@ -188,7 +188,6 @@ public class HomeActivity extends AppCompatActivity {
         //load Cartoon after Anime
         loadCartoonData();
     }
-
     private void loadCartoonData() {
         DatabaseReference CTRef = database.getReference("Cartoon");
         cartoonRV = findViewById(R.id.rv_Cartoon);
