@@ -2,8 +2,6 @@ package com.example.myapplication;
 
 import static android.graphics.BitmapFactory.decodeFile;
 
-import android.content.Context;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.example.myapplication.Activity.MovieTest;
 import com.example.myapplication.Model.MovieModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,13 +24,12 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyVH> {
     ArrayList<MovieModel> movieModels;
 
-    public MovieAdapter(ArrayList<MovieModel> movieModels){
-        this.movieModels = movieModels;
+    public MovieAdapter(ArrayList<MovieModel> movieModels, MovieTest movieTest){
+        this.movieModels = this.movieModels;
     }
 
     @NonNull
@@ -78,6 +74,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyVH> {
     public int getItemCount() {
         return movieModels.size();
     }
+
 
     public class MyVH extends RecyclerView.ViewHolder{
         ImageView imageView;

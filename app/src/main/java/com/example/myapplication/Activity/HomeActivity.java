@@ -383,4 +383,5 @@ public class HomeActivity extends AppCompatActivity {
         sliderAdapter.renewItems(dataModels);
         sliderAdapter.deleteItems(0);
     }
+
 }

@@ -1,9 +1,5 @@
 package com.example.myapplication.Model;
 
-import com.google.firebase.firestore.DocumentReference;
-
-import java.lang.ref.Reference;
-
 public class MovieModel {
     String Cast;
     String Country;
@@ -17,12 +13,13 @@ public class MovieModel {
     String Histroy;
     String Thumb;
     String Cate;
+    String Id;
 
-    public MovieModel() {
+    public MovieModel(String id, String title, String desc) {
     }
 
     public MovieModel(String cast, String country, String cover, String description,
-                      String episode, String length, String link, String rating, String title, String thumb,String histroy,String cate) {
+                      String episode, String length, String link, String rating, String title, String thumb,String histroy,String cate, String id) {
         Cast = cast;
         Country = country;
         Cover = cover;
@@ -35,9 +32,19 @@ public class MovieModel {
         Thumb = thumb;
         Histroy = histroy;
         Cate = cate;
+        Id = id;
     }
 
-    //    public String getCast() {
+
+//    public String getCast() {
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
 //        return Cast;
 //    }
 //

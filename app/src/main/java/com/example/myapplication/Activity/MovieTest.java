@@ -2,43 +2,32 @@ package com.example.myapplication.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.graphics.Matrix;
-import android.icu.number.Scale;
-import android.net.Uri;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import com.example.myapplication.Adapter;
 import com.example.myapplication.AnimeAdapter;
-import com.example.myapplication.CartoonAdapter;
 import com.example.myapplication.FeatureAdapter;
 import com.example.myapplication.Model.AnimeModel;
 import com.example.myapplication.Model.FeatureModel;
 import com.example.myapplication.Model.MovieModel;
 import com.example.myapplication.MovieAdapter;
 import com.example.myapplication.R;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.ProgressiveMediaSource;
-import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -49,9 +38,6 @@ import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnima
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
-import org.checkerframework.checker.units.qual.A;
-
-import java.lang.ref.Reference;
 import java.util.ArrayList;
 
 public class MovieTest extends AppCompatActivity {
@@ -95,7 +81,7 @@ public class MovieTest extends AppCompatActivity {
         renewItems(sliderView);
 
         movieModels = new ArrayList<>();
-        movieAdapter = new MovieAdapter(movieModels);
+        movieAdapter = new MovieAdapter(movieModels, this);
         db = FirebaseFirestore.getInstance();
 
         rv_anime = findViewById(R.id.rv_Anime);
@@ -126,7 +112,8 @@ public class MovieTest extends AppCompatActivity {
                 String cate = documentSnapshot.get("Cate").toString();
                 String thumb = documentSnapshot.get("Thumb").toString();
                 String country = documentSnapshot.get("Country").toString();
-                movieModels.add(new MovieModel(cast, country, cover, desc, eps, length, link, rate, title, thumb, his, cate));
+                String id = documentSnapshot.get("Id").toString();
+                movieModels.add(new MovieModel(cast, country, cover, desc, eps, length, link, rate, title, thumb, his, cate,id));
             }
             movieAdapter.notifyDataSetChanged();
         }).addOnFailureListener(e -> {
@@ -152,5 +139,58 @@ public class MovieTest extends AppCompatActivity {
         featureModels.add(dataItems);
         featureAdapter.renewItems(featureModels);
         featureAdapter.deleteItems(0);
+    }
+    private void searchData(String query) {
+        db.collection("Anime").whereEqualTo("Title",query.toLowerCase())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        movieModels.clear();
+                        for(DocumentSnapshot doc: task.getResult()){
+                            MovieModel movieModel=new MovieModel(doc.getString("Id"),
+                                    doc.getString("title"),
+                                    doc.getString("desc"));
+                            movieModels.add(movieModel);
+
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MovieTest.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+    @Override
+     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_item,menu);
+        MenuItem item =menu.findItem(R.id.mn_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchData(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.mn_setting){
+            Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -9,9 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.StudentVH>{
     ArrayList<Student> students;
@@ -65,5 +63,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.StudentVH>{
     public interface Listener{
         void setOnDeleteClick(Student st);
         void setOnEditClick(Student st);
+    }
+
+    public static class MenuAdapter {
     }
 }
