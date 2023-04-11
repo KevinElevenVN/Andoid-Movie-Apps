@@ -154,7 +154,7 @@ public class HomeActivity extends AppCompatActivity {
     private void loadAnimeData() {
         //load data from firebase
         DatabaseReference ARef = database.getReference("Anime");
-        animeRV = findViewById(R.id.rv_Anime);
+        animeRV = findViewById(R.id.rv_Movie);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
@@ -188,6 +188,7 @@ public class HomeActivity extends AppCompatActivity {
         //load Cartoon after Anime
         loadCartoonData();
     }
+
     private void loadCartoonData() {
         DatabaseReference CTRef = database.getReference("Cartoon");
         cartoonRV = findViewById(R.id.rv_Cartoon);

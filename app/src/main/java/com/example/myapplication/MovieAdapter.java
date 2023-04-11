@@ -3,34 +3,26 @@ package com.example.myapplication;
 import static android.graphics.BitmapFactory.decodeFile;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.BitmapFactory;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.Activity.PlayerActivity;
 import com.example.myapplication.Model.MovieModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import com.smarteist.autoimageslider.SliderViewAdapter;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,23 +31,24 @@ import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyVH> {
     ArrayList<MovieModel> movieModels;
-    Context context;
+
     public MovieAdapter(ArrayList<MovieModel> movieModels){
         this.movieModels = movieModels;
     }
 
-
+    @NonNull
     @Override
-    public MyVH onCreateViewHolder( ViewGroup parent, int viewType) {
+    public MyVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.movie_card,parent,false);
         return new MyVH(view);
     }
 
     @Override
-    public void onBindViewHolder(MyVH holder, int position) {
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+    public void onBindViewHolder(@NonNull MyVH holder, int position) {
         MovieModel movieModel = movieModels.get(position);
+        holder.textView.setText(movieModel.getTitle());
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         StorageReference pathReference = storageRef.child(movieModel.getThumb());
 
         try{
@@ -78,9 +71,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyVH> {
             throw new RuntimeException();
         }
 
-        holder.textView.setText(movieModels.get(position).getTitle());
-//        Glide.with(holder.itemView.getContext()).
-//                load(movieModels.get(position).getThumb()).into(holder.imageView);
+
     }
 
     @Override
@@ -92,7 +83,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyVH> {
         ImageView imageView;
         TextView textView;
 
-        public MyVH(View itemView) {
+        public MyVH(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             textView = itemView.findViewById(R.id.movie_title);
