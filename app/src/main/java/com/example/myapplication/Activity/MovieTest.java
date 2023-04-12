@@ -90,6 +90,7 @@ public class MovieTest extends AppCompatActivity {
 
         loadFeatureSlider();
         loadAnimeData();
+
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -108,7 +109,8 @@ public class MovieTest extends AppCompatActivity {
                 String cate = documentSnapshot.get("Cate").toString();
                 String thumb = documentSnapshot.get("Thumb").toString();
                 String country = documentSnapshot.get("Country").toString();
-                movieModels.add(new MovieModel(cast, country, cover, desc, eps, length, link, rate, title, thumb, his, cate));
+//                String search = documentSnapshot.get("Search").toString();
+                movieModels.add(new MovieModel(cast, country, cover, desc, eps, length, link, rate, title, thumb, his, cate ));
             }
             movieAdapter.notifyDataSetChanged();
         }).addOnFailureListener(e -> {
@@ -137,12 +139,14 @@ public class MovieTest extends AppCompatActivity {
     }
 
     private void searchData(String query) {
-        db.collection("Film").whereEqualTo("Title",query)
+
+        db.collection("Film").orderBy("Title").whereEqualTo("Title",query))
                 .get()
                 .addOnCompleteListener(task -> {
                     movieModels.clear();
                     for(DocumentSnapshot doc: task.getResult()){
-//                        MovieModel Model =new MovieModel(doc.getString("Title"),
+                        MovieModel Model =new MovieModel(
+                                doc.getString("Title"),
 //                                doc.getString("Cast"),
 //                                doc.getString("Cover"),
 //                                doc.getString("Cast"),
@@ -152,26 +156,26 @@ public class MovieTest extends AppCompatActivity {
 //                                doc.getString("Cast"),
 //                                doc.getString("Rate"),
 //                                doc.getString("Cate"),
-//                                doc.getString("Thumb"),
+                                doc.getString("Thumb");
 //                                doc.getString("Country"));
-//                        movieModels.add(Model);
-                        String title = doc.get("Title").toString();
-                        String cast = doc.get("Cast").toString();
-                        String cover = doc.get("Cover").toString();
-                        String desc = doc.get("Cast").toString();
-                        String eps = doc.get("Cast").toString();
-                        String his = doc.get("History").toString();
-                        String length = doc.get("Length").toString();
-                        String link = doc.get("Cast").toString();
-                        String rate = doc.get("Rate").toString();
-                        String cate = doc.get("Cate").toString();
-                        String thumb = doc.get("Thumb").toString();
-                        String country = doc.get("Country").toString();
-                        movieModels.add(new MovieModel(cast, country, cover, desc, eps, length, link, rate, title, thumb, his, cate));
+                        movieModels.add(Model);
+//                        String title = doc.get("Title").toString();
+//                        String cast = doc.get("Cast").toString();
+//                        String cover = doc.get("Cover").toString();
+//                        String desc = doc.get("Cast").toString();
+//                        String eps = doc.get("Cast").toString();
+//                        String his = doc.get("History").toString();
+//                        String length = doc.get("Length").toString();
+//                        String link = doc.get("Cast").toString();
+//                        String rate = doc.get("Rate").toString();
+//                        String cate = doc.get("Cate").toString();
+//                        String thumb = doc.get("Thumb").toString();
+//                        String country = doc.get("Country").toString();
+//                        movieModels.add(new MovieModel(cast, country, cover, desc, eps, length, link, rate, title, thumb, his, cate));
                     }
-//                    movieAdapter =new MovieAdapter(MovieTest.this,movieModels);
-//                    rv_anime.setAdapter(movieAdapter);
-                    movieAdapter.notifyDataSetChanged();
+                    movieAdapter =new MovieAdapter(MovieTest.this,movieModels);
+                   rv_anime.setAdapter(movieAdapter);
+//                    movieAdapter.notifyDataSetChanged();
                 })
                 .addOnFailureListener(e -> Toast.makeText(MovieTest.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show());
     }
@@ -191,6 +195,7 @@ public class MovieTest extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                searchData(newText);
                 Toast.makeText(MovieTest.this, "Khong Tim Thay", Toast.LENGTH_SHORT).show();
                 rv_anime.setVisibility(View.GONE);
                 if(newText.isEmpty()){
@@ -200,6 +205,7 @@ public class MovieTest extends AppCompatActivity {
                 {
                     rv_anime.setVisibility(View.VISIBLE);
                 }
+
                 return false;
             }
         });
