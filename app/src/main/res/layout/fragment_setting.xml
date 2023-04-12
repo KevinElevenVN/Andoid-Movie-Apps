@@ -168,12 +168,18 @@
             android:textColor="@color/white"
             android:textSize="18sp"/>
 
-        <Switch
+<!--        <Switch-->
+<!--            android:id="@+id/switch_theme"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:theme="@style/SCBSwitch"-->
+<!--            tools:ignore="UseSwitchCompatOrMaterialXml" />-->
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/SCBSwitch"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            android:theme="@style/SCBSwitch"/>
     </LinearLayout>
 
     <!--Điều khoản sử dụng-->

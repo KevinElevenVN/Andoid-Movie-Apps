@@ -1,5 +1,6 @@
 package com.example.myapplication.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -20,6 +21,7 @@ import android.widget.Switch;
 
 import com.example.myapplication.Activity.HomeActivity;
 import com.example.myapplication.R;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.function.ToLongBiFunction;
 
@@ -74,27 +76,42 @@ public class SettingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
+
+        //region Light/Dark
+//        @SuppressLint("UseSwitchCompatOrMaterialCode")
+//        Switch theme_switch = view.findViewById(R.id.switch_theme);
+//        theme_switch.setOnCheckedChangeListener((compoundButton, b) -> {
+//            if (b){
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//            }
+//            else {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//            }
+//        });
+
+        SwitchMaterial theme_switch = view.findViewById(R.id.switch_theme);
+        theme_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        });
+
+        boolean isNightModeOn = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
+        theme_switch.setChecked(isNightModeOn);
+        //endregion
+
         Toolbar toolbar = view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Setting");
 
         toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_ios_24);
         toolbar.setNavigationOnClickListener(view1 -> {
-//            Intent i = new Intent(getContext(), HomeActivity.class);
-//            startActivity(i);
-//                getActivity().finish();
             getActivity().onBackPressed();
-        });
-
-
-        Switch theme_switch = view.findViewById(R.id.switch_theme);
-        theme_switch.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (b){
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            }
-            else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            }
         });
 
         // Inflate the layout for this fragment
