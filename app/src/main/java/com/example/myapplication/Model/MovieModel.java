@@ -10,13 +10,16 @@ public class MovieModel {
     String Link;
     String Rating;
     String Title;
-    String Histroy;
+    String History;
     String Thumb;
     String Cate;
+//
+
+
 
 
     public MovieModel(String cast, String country, String cover, String description,
-                      String episode, String length, String link, String rating, String title, String thumb,String history,String cate) {
+                      String episode, String length, String link, String rating, String title, String thumb, String history, String cate ) {
         Cast = cast;
         Country = country;
         Cover = cover;
@@ -27,11 +30,13 @@ public class MovieModel {
         Rating = rating;
         Title = title;
         Thumb = thumb;
-        Histroy = history;
+        History = history;
         Cate = cate;
+
     }
 
-    //    public String getCast() {
+
+//    public String getCast() {
 //        return Cast;
 //    }
 //
@@ -111,4 +116,5 @@ public class MovieModel {
     public void setTitle(String title) {
         Title = title;
     }
+
 }
