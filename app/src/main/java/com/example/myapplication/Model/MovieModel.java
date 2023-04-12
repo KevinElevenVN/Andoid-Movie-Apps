@@ -8,8 +8,8 @@ public class MovieModel {
     String Cast;
     String Country;
     String Cover;
-    String Description;
-    String Episode;
+    String Desc;
+    String Eps;
     String Length;
     String Link;
     String Rating;
@@ -26,8 +26,8 @@ public class MovieModel {
         Cast = cast;
         Country = country;
         Cover = cover;
-        Description = description;
-        Episode = episode;
+        Desc = description;
+        Eps = episode;
         Length = length;
         Link = link;
         Rating = rating;
@@ -62,19 +62,19 @@ public class MovieModel {
     }
 
     public String getDescription() {
-        return Description;
+        return Desc;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        Desc = description;
     }
 
     public String getEpisode() {
-        return Episode;
+        return Eps;
     }
 
     public void setEpisode(String episode) {
-        Episode = episode;
+        Eps = episode;
     }
 
     public String getLength() {

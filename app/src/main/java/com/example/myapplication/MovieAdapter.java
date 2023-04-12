@@ -54,7 +54,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyVH> {
         holder.textView.setText(movieModel.getTitle());
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         StorageReference pathReference = storageRef.child(movieModel.getThumb());
-
         try{
             File file = File.createTempFile("image", "jpg");
             pathReference.getFile(file)
@@ -70,8 +69,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyVH> {
                             Log.d("ABC",e.getMessage());
                         }
                     });
-        }catch (IOException e)
-        {
+        }catch (IOException e) {
             throw new RuntimeException();
         }
 
@@ -95,7 +93,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyVH> {
                             "imageMain");
             //sharedElementName is the same as xml file (imageMain)
             holder.itemView.getContext().startActivity(sendData2Detail,optionsCompat.toBundle());
-
         });
     }
 

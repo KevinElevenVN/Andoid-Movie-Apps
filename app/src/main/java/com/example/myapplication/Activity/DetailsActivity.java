@@ -3,11 +3,15 @@ package com.example.myapplication.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.media.audiofx.DynamicsProcessing;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,17 +20,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.EpisodeAdapter;
 import com.example.myapplication.Model.EpisodeModel;
+import com.example.myapplication.Model.MovieModel;
 import com.example.myapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsActivity extends AppCompatActivity {
+    FirebaseFirestore db;
     List<EpisodeModel> episodeModels;
     EpisodeAdapter episodeAdapter;
 
@@ -45,6 +58,7 @@ public class DetailsActivity extends AppCompatActivity {
     String rating_movie;
     String cate_movie;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,8 +108,7 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void loadEps() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference epsRef = database.getReference();
+        db = FirebaseFirestore.getInstance();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         part_recycler_view.setLayoutManager(layoutManager);
@@ -104,20 +117,15 @@ public class DetailsActivity extends AppCompatActivity {
         episodeAdapter = new EpisodeAdapter(episodeModels);
         part_recycler_view.setAdapter(episodeAdapter);
 
-        epsRef.child("link").child(link_movie).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot content:snapshot.getChildren()){
-                    EpisodeModel episodeModel = content.getValue(EpisodeModel.class);
-                    episodeModels.add(episodeModel);
-                }
-                episodeAdapter.notifyDataSetChanged();
+        db.collection("Link").document(link_movie).collection("0").get().addOnCompleteListener(task -> {
+            for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                String url = documentSnapshot.get("url").toString();
+                String vidurl = documentSnapshot.get("vidurl").toString();
+                episodeModels.add(new EpisodeModel(url,vidurl));
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+            episodeAdapter.notifyDataSetChanged();
+        }).addOnFailureListener(e ->
+                Toast.makeText(DetailsActivity.this, "ERROR", Toast.LENGTH_SHORT).show());
     }
 
     @Override
