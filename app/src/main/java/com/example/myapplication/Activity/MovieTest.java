@@ -3,6 +3,7 @@ package com.example.myapplication.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.myapplication.FeatureAdapter;
@@ -24,9 +26,14 @@ import com.example.myapplication.Model.FeatureModel;
 import com.example.myapplication.Model.MovieModel;
 import com.example.myapplication.MovieAdapter;
 import com.example.myapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -99,7 +106,48 @@ public class MovieTest extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_item,menu);
-        return true;
+        //region Search
+        MenuItem item = menu.findItem(R.id.mn_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                //call when press search button
+                seachData(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                //call when type letter
+                return false;
+            }
+        });
+        //endregion
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    void seachData(String s){
+        db.collection("Film").whereEqualTo("Search",s.toLowerCase())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        movieModels.clear();
+                        for (QueryDocumentSnapshot doc : task.getResult()){
+                            String title = doc.get("Title").toString();
+                            String thumb = doc.get("Thumb").toString();
+                            movieModels.add(new MovieModel(title,thumb));
+                        }
+                        movieAdapter = new MovieAdapter(movieModels);
+                        rv_Movie.setAdapter(movieAdapter);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -115,7 +163,7 @@ public class MovieTest extends AppCompatActivity {
         }
         //FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
-                .replace(R.id.content,fragment,null).addToBackStack("fragment_setting");
+                .replace(R.id.content,fragment,null).addToBackStack("fragment_setting").addToBackStack("fragment_search");
         //replace framelayout(id content)
 //        ft.replace(R.id.content,fragment).addToBackStack(null).commit();
         //save the display

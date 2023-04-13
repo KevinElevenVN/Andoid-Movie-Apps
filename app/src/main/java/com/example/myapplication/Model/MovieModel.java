@@ -21,6 +21,11 @@ public class MovieModel {
     public MovieModel() {
     }
 
+    public MovieModel(String title,String thumb){
+        Title = title;
+        Thumb = thumb;
+    }
+
     public MovieModel(String cast, String country, String cover, String description,
                       String episode, String length, String link, String rating, String title, String thumb,String histroy,String cate) {
         Cast = cast;
