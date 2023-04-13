@@ -2,6 +2,7 @@ package com.example.myapplication.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,9 +26,14 @@ import com.example.myapplication.Model.FeatureModel;
 import com.example.myapplication.Model.MovieModel;
 import com.example.myapplication.MovieAdapter;
 import com.example.myapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -93,13 +100,63 @@ public class MovieTest extends AppCompatActivity {
         loadFeatureSlider();
         loadFilmData();
     }
-
+    //method search
+    private void searchData(String query) {
+        db.collection("Film").whereEqualTo("Search",query.toLowerCase())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        movieModels.clear();
+                        for(DocumentSnapshot doc: task.getResult()){
+                            MovieModel movieModel=new MovieModel(
+                                    doc.getString("Title"),
+                                    doc.getString("Cast"),
+                                    doc.getString("Cover"),
+                                    doc.getString("Desc"),
+                                    doc.getString("Eps"),
+                                    doc.getString("History"),
+                                    doc.getString("Length"),
+                                    doc.getString("Link"),
+                                    doc.getString("Rate"),
+                                    doc.getString("Cate"),
+                                    doc.getString("Thumb"),
+                                    doc.getString("Country"),
+                                    doc.getString("Search"));
+                            movieModels.add(movieModel);
+                        }
+                        MovieAdapter adapter=new MovieAdapter(movieModels);
+                        rv_Movie.setAdapter(adapter);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MovieTest.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
     //region Fragment
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_item,menu);
-        return true;
+        MenuItem item =menu.findItem(R.id.mn_search);
+        SearchView searchView=(SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchData(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchData(newText);
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -153,7 +210,8 @@ public class MovieTest extends AppCompatActivity {
                 String cate = documentSnapshot.get("Cate").toString();
                 String thumb = documentSnapshot.get("Thumb").toString();
                 String country = documentSnapshot.get("Country").toString();
-                movieModels.add(new MovieModel(cast, country, cover, desc, eps, length, link, rate, title, thumb, his, cate));
+                String search = documentSnapshot.get("Search").toString();
+                movieModels.add(new MovieModel(cast, country, cover, desc, eps, length, link, rate, title, thumb, his, cate, search));
             }
             movieAdapter.notifyDataSetChanged();
         }).addOnFailureListener(e -> {
@@ -180,4 +238,13 @@ public class MovieTest extends AppCompatActivity {
         featureAdapter.renewItems(featureModels);
         featureAdapter.deleteItems(0);
     }
+
+    public void renewItems(View view){
+        featureModels = new ArrayList<>();
+        FeatureModel dataItems = new FeatureModel();
+        featureModels.add(dataItems);
+        featureAdapter.renewItems(featureModels);
+        featureAdapter.deleteItems(0);
+    }
+
 }

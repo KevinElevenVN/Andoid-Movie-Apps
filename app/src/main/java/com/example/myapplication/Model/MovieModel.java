@@ -13,10 +13,11 @@ public class MovieModel {
     String History;
     String Thumb;
     String Cate;
+    String Search;
 
 
     public MovieModel(String cast, String country, String cover, String description,
-                      String episode, String length, String link, String rating, String title, String thumb,String histroy,String cate) {
+                      String episode, String length, String link, String rating, String title, String thumb,String history,String cate,String search) {
         Cast = cast;
         Country = country;
         Cover = cover;
@@ -27,9 +28,14 @@ public class MovieModel {
         Rating = rating;
         Title = title;
         Thumb = thumb;
-        History = histroy;
+        History = history;
         Cate = cate;
+        Search=search;
     }
+
+    public String getSearch() {return Search;}
+
+    public void setSearch(String search) {Search = search;}
 
     public String getCast() {
         return Cast;
